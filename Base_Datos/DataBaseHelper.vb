@@ -1,17 +1,22 @@
 ﻿Imports System.Data.SqlClient
 
-Public Function GetProductos() As DataTable
-    Const sql As String = "SELECT IdProducto, Descripcion, Cantidad FROM [dbo].[InventarioFerreteria]"
-    Dim dt As New DataTable()
 
-    Using cn As New SqlConnection(ConnectionString),
-          da As New SqlDataAdapter(sql, cn)
-        da.Fill(dt)
-    End Using
+Public Class Inventario
+    Inherits System.Web.UI.Page
 
-    Return dt
-End Function
+    ' Ajusta tu cadena de conexión
+    Dim conexion As New SqlConnection("Data Source=PhillipsPC;Initial Catalog=IventarioFerreteria;Integrated Security=True")
 
-Private Function ConnectionString() As String
-    Throw New NotImplementedException()
-End Function
+    Protected Sub btnConsultar_Click(sender As Object, e As EventArgs) Handles btnConsultar.Click
+        Dim consulta As String = "SELECT IdProducto, Descripcion FROM Productos WHERE Descripcion LIKE @Descripcion"
+        Dim adaptador As New SqlDataAdapter(consulta, conexion)
+        adaptador.SelectCommand.Parameters.AddWithValue("@Descripcion", "%" & txtDescripcion.Text & "%")
+
+        Dim tabla As New DataTable()
+        adaptador.Fill(tabla)
+
+        gvInventario.DataSource = tabla
+        gvInventario.DataBind()
+    End Sub
+End Class
+
