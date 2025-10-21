@@ -3,18 +3,15 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <main aria-labelledby="title">
         <h2 id="title"><%: Title %></h2>
-        <p>Your contact page.</p>
+        <p>Desarrollado por Victor Phillips y Moises Rodriguez</p>
 
         <address>
-            One Microsoft Way<br />
-            Redmond, WA 98052-6399<br />
-            <abbr title="Phone">P:</abbr>
-            425.555.0100
+           Proyecto Universitario<br />
+           Universidad Central<br />
+            <abbr title="Phone"></abbr>
+            Programación III
         </address>
 
-        <address>
-            <strong>Support:</strong><a href="mailto:Support@example.com">Support@example.com</a><br />
-            <strong>Marketing:</strong><a href="mailto:Marketing@example.com">Marketing@example.com</a>
-        </address>
+     
     </main>
 </asp:Content>
