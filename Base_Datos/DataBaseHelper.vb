@@ -1,29 +1,17 @@
 ﻿Imports System.Data.SqlClient
-Public Class DataBaseHelper
-    Public Class DataBaseHelper
-        Private ReadOnly ConectionString As String = ConfigurationManager.ConnectionStrings("II-46ConnectionString").ConnectionString
-        Public Function create(Producto As Producto) As String
-            Try
-                Dim sql As String = "Insert into Producto (Nombre, Apellido, Edad) VALUES (@Nombre,@Apellido, @Edad)"
-                Dim parametros As New List(Of SqlParameter) From {
-                New SqlParameter("@Nombre", Persona.Nombre),
-                New SqlParameter("@Apellido", Persona.Apellido),
-                New SqlParameter("@Edad", Persona.Edad)
-    }
-                Using connection As New SqlConnection(ConectionString)
-                    Using command As New SqlCommand(sql, connection)
-                        command.Parameters.AddRange(parametros.ToArray())
-                        connection.Open()
-                        command.ExecuteNonQuery()
-                    End Using
-                End Using
 
-            Catch ex As Exception
-                Return ex.Message
-            End Try
-            Return "E"
+Public Function GetProductos() As DataTable
+    Const sql As String = "SELECT IdProducto, Descripcion, Cantidad FROM [dbo].[InventarioFerreteria]"
+    Dim dt As New DataTable()
 
-        End Function
-    End Class
+    Using cn As New SqlConnection(ConnectionString),
+          da As New SqlDataAdapter(sql, cn)
+        da.Fill(dt)
+    End Using
 
-End Class
+    Return dt
+End Function
+
+Private Function ConnectionString() As String
+    Throw New NotImplementedException()
+End Function
